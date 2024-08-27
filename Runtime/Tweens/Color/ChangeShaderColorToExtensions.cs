@@ -1,15 +1,17 @@
-﻿using HDTween;
-using UnityEngine;
+﻿using UnityEngine;
 
-public static class ChangeShaderColorToExtensions
+namespace HDTween
 {
-    public static ChangeShaderColorToTween ChangeShaderColorTo(this Material material, string shaderKey, Color targetColor, float duration, bool unscaled = false)
+    public static class ChangeShaderColorToExtensions
     {
-        return new ChangeShaderColorToTween(material, shaderKey, targetColor, duration, unscaled);
-    }
+        public static ChangeShaderColorToTween ChangeShaderColorTo(this Material material, string shaderKey, UnityEngine.Color targetColor, float duration, bool unscaled = false)
+        {
+            return new ChangeShaderColorToTween(material, shaderKey, targetColor, duration, unscaled);
+        }
 
-    public static ITween StartTween(this ChangeShaderColorToTween tween)
-    {
-        return TweenManager.Instance.StartTween(tween);
+        public static ITween StartTween(this ChangeShaderColorToTween tween)
+        {
+            return TweenManager.Instance.StartTween(tween);
+        }
     }
 }

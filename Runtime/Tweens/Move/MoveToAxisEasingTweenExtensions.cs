@@ -1,36 +1,38 @@
-﻿using HDTween;
-using UnityEngine;
+﻿using UnityEngine;
 
-public static class MoveToAxisEasingTweenExtensions
+namespace HDTween
 {
-    public static MoveToAxisEasingTween MoveToAxisEasing(this Transform transform, 
-        Vector3 endPosition, float duration, bool unscaled = false, bool local = false)
+    public static class MoveToAxisEasingTweenExtensions
     {
-        return new MoveToAxisEasingTween(transform, endPosition, duration, unscaled, local);
-    }
-
-    public static ITween StartTween(this MoveToAxisEasingTween tween)
-    {
-        return TweenManager.Instance.StartTween(tween);
-    }
-
-    public static ITween SetEaseX(this ITween tween, AnimationCurve easeX)
-    {
-        if (tween is MoveToTween moveToTween)
+        public static MoveToAxisEasingTween MoveToAxisEasing(this Transform transform, 
+            Vector3 endPosition, float duration, bool unscaled = false, bool local = false)
         {
-            moveToTween.SetEase(easeX);
+            return new MoveToAxisEasingTween(transform, endPosition, duration, unscaled, local);
         }
-        
-        return tween;
-    }
 
-    public static ITween SetEaseY(this ITween tween, AnimationCurve easeY)
-    {
-        if (tween is MoveToTween moveToTween)
+        public static ITween StartTween(this MoveToAxisEasingTween tween)
         {
-            moveToTween.SetEase(easeY);
+            return TweenManager.Instance.StartTween(tween);
         }
+
+        public static ITween SetEaseX(this ITween tween, AnimationCurve easeX)
+        {
+            if (tween is MoveToTween moveToTween)
+            {
+                moveToTween.SetEase(easeX);
+            }
         
-        return tween;
+            return tween;
+        }
+
+        public static ITween SetEaseY(this ITween tween, AnimationCurve easeY)
+        {
+            if (tween is MoveToTween moveToTween)
+            {
+                moveToTween.SetEase(easeY);
+            }
+        
+            return tween;
+        }
     }
 }

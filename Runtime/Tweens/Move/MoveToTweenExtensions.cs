@@ -1,16 +1,18 @@
-﻿using HDTween;
-using UnityEngine;
+﻿using UnityEngine;
 
-public static class MoveToTweenExtensions
+namespace HDTween
 {
-    public static MoveToTween MoveTo(this Transform transform,
-        Vector3 endPosition, float duration, bool unscaled = false, bool local = false)
+    public static class MoveToTweenExtensions
     {
-        return new MoveToTween(transform, endPosition, duration, unscaled, local);
-    }
+        public static MoveToTween MoveTo(this Transform transform,
+            Vector3 endPosition, float duration, bool unscaled = false, bool local = false)
+        {
+            return new MoveToTween(transform, endPosition, duration, unscaled, local);
+        }
 
-    public static ITween StartTween(this MoveToTween tween)
-    {
-        return TweenManager.Instance.StartTween(tween);
+        public static ITween StartTween(this MoveToTween tween)
+        {
+            return TweenManager.Instance.StartTween(tween);
+        }
     }
 }

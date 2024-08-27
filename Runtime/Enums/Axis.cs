@@ -1,6 +1,9 @@
-﻿public enum Axis
+﻿namespace HDTween
 {
-    X,
-    Y,
-    Z
+    public enum Axis
+    {
+        X,
+        Y,
+        Z
+    }
 }

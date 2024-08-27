@@ -1,15 +1,17 @@
-﻿using HDTween;
-using UnityEngine;
+﻿using UnityEngine;
 
-public static class ScaleToExtensions
+namespace HDTween
 {
-    public static ScaleToTween ScaleTo(this Transform transform, Vector3 scaleMultiplier, float duration, bool unscaled = false)
+    public static class ScaleToExtensions
     {
-        return new ScaleToTween(transform, scaleMultiplier, duration, unscaled);
-    }
+        public static ScaleToTween ScaleTo(this Transform transform, Vector3 scaleMultiplier, float duration, bool unscaled = false)
+        {
+            return new ScaleToTween(transform, scaleMultiplier, duration, unscaled);
+        }
 
-    public static ITween StartTween(this ScaleToTween tween)
-    {
-        return TweenManager.Instance.StartTween(tween);
+        public static ITween StartTween(this ScaleToTween tween)
+        {
+            return TweenManager.Instance.StartTween(tween);
+        }
     }
 }

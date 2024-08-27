@@ -1,82 +1,84 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using HDTween;
 using UnityEngine;
 
-public class SequenceTween : ITween
+namespace HDTween
 {
-    public bool HasCancellationRequested { get; private set; }
-    public bool WasCancelled { get; private set; } 
-    private readonly bool _stopOnAnyTweenCancel;
-    private readonly List<ITween> _tweens = new List<ITween>();
-
-    public SequenceTween(bool stopOnAnyTweenCancel = true)
+    public class SequenceTween : ITween
     {
-        _stopOnAnyTweenCancel = stopOnAnyTweenCancel;
-    }
+        public bool HasCancellationRequested { get; private set; }
+        public bool WasCancelled { get; private set; } 
+        private readonly bool _stopOnAnyTweenCancel;
+        private readonly List<ITween> _tweens = new List<ITween>();
 
-    public SequenceTween AddTween(ITween tween)
-    {
-        _tweens.Add(tween);
-        
-        return this;
-    }
-
-    public ITween SetEase(AnimationCurve curve)
-    {
-        foreach (ITween tween in _tweens)
+        public SequenceTween(bool stopOnAnyTweenCancel = true)
         {
-            tween.SetEase(curve);
+            _stopOnAnyTweenCancel = stopOnAnyTweenCancel;
         }
-        
-        return this;
-    }
 
-    public ITween SetDelay(float delay)
-    {
-        foreach (ITween tween in _tweens)
+        public SequenceTween AddTween(ITween tween)
         {
-            tween.SetDelay(delay);
+            _tweens.Add(tween);
+        
+            return this;
         }
-        
-        return this;
-    }
 
-    public async UniTask ExecuteAsync(CancellationToken cancellationToken)
-    {
-        foreach (ITween tween in _tweens)
+        public ITween SetEase(AnimationCurve curve)
         {
-            if (HasCancellationRequested || cancellationToken.IsCancellationRequested)
+            foreach (ITween tween in _tweens)
             {
-                WasCancelled = true;
-                break;
+                tween.SetEase(curve);
             }
+        
+            return this;
+        }
 
-            await tween.ExecuteAsync(cancellationToken);
-
-            if (HasCancellationRequested || cancellationToken.IsCancellationRequested)
+        public ITween SetDelay(float delay)
+        {
+            foreach (ITween tween in _tweens)
             {
-                WasCancelled = true;
-                break;
+                tween.SetDelay(delay);
             }
+        
+            return this;
+        }
 
-            if (tween.WasCancelled && _stopOnAnyTweenCancel)
+        public async UniTask ExecuteAsync(CancellationToken cancellationToken)
+        {
+            foreach (ITween tween in _tweens)
             {
-                WasCancelled = true;
-                break;
+                if (HasCancellationRequested || cancellationToken.IsCancellationRequested)
+                {
+                    WasCancelled = true;
+                    break;
+                }
+
+                await tween.ExecuteAsync(cancellationToken);
+
+                if (HasCancellationRequested || cancellationToken.IsCancellationRequested)
+                {
+                    WasCancelled = true;
+                    break;
+                }
+
+                if (tween.WasCancelled && _stopOnAnyTweenCancel)
+                {
+                    WasCancelled = true;
+                    break;
+                }
             }
         }
-    }
 
-    public void Cancel()
-    {
-        HasCancellationRequested = true;
-        WasCancelled = true;
-        
-        foreach (ITween tween in _tweens)
+        public void Cancel()
         {
-            tween.Cancel();
+            HasCancellationRequested = true;
+            WasCancelled = true;
+        
+            foreach (ITween tween in _tweens)
+            {
+                tween.Cancel();
+            }
         }
     }
 }

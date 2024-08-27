@@ -1,16 +1,18 @@
-﻿using HDTween;
-using UnityEngine;
+﻿using UnityEngine;
 
-public static class RotateToTweenExtensions
+namespace HDTween
 {
-    public static RotateToTween RotateTo(this Transform transform,
-        Quaternion endRotation, float duration, bool unscaled = false, bool local = false)
+    public static class RotateToTweenExtensions
     {
-        return new RotateToTween(transform, endRotation, duration, unscaled, local);
-    }
+        public static RotateToTween RotateTo(this Transform transform,
+            Quaternion endRotation, float duration, bool unscaled = false, bool local = false)
+        {
+            return new RotateToTween(transform, endRotation, duration, unscaled, local);
+        }
 
-    public static ITween StartTween(this RotateToTween tween)
-    {
-        return TweenManager.Instance.StartTween(tween);
+        public static ITween StartTween(this RotateToTween tween)
+        {
+            return TweenManager.Instance.StartTween(tween);
+        }
     }
 }
