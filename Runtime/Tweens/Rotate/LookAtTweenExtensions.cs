@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using HDTween;
+using UnityEngine;
 
 public static class LookAtTweenExtensions
 {
