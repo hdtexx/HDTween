@@ -1,0 +1,17 @@
+﻿{
+  "name": "com.hdsoft.hdtween",
+  "version": "1.0.1",
+  "displayName": "HDTween",
+  "description": "Tweener for Unity based on UniTask",
+  "keywords": [ "async/await", "async", "Task", "UniTask" ],
+  "license": "MIT",
+  "unity": "2020.3",
+  "author": {
+    "name": "hdsoft",
+    "email": "hdtexx@gmail.com"
+  },
+  "dependencies": {
+    "com.cysharp.unitask": "2.5.5",
+    "com.unity.textmeshpro": "2.0.1"
+  }
+}
